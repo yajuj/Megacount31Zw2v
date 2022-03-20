@@ -6,6 +6,7 @@ import { IContact } from '../types/contact';
 interface ContextState {
   contacts: IContact[];
   error: string;
+  isLoading: boolean;
   removeContact: (id: string) => void;
   addContact: (contact: Omit<IContact, '_id'>) => void;
   updateContact: (contact: IContact) => void;
@@ -20,11 +21,14 @@ export const AppContextProvider: React.FC = ({ children }) => {
 
   const fetchContacts = async () => {
     try {
+      setIsLoading(true);
       const { data } = await api.get<IContact[]>('/contacts');
       setContacts(data);
       setError('');
     } catch (error) {
       setError('Не удалось загрузить контакты');
+    } finally {
+      setIsLoading(false);
     }
   };
   useEffect(() => {
@@ -84,6 +88,7 @@ export const AppContextProvider: React.FC = ({ children }) => {
         updateContact,
         addContact,
         error,
+        isLoading,
       }}
     >
       {children}
