@@ -2,3 +2,6 @@
 {"name":"Тимур","phone":"+79589632545","_id":"NSnf7IqlXQVF7LWo"}
 {"name":"Ольга","phone":"+79569633255","_id":"rcTZ6YIT3DnraxqW"}
 {"$$indexCreated":{"fieldName":"phone","unique":true,"sparse":false}}
+{"name":"Олег","phone":"+79639214545","_id":"YMUVh3upGZAQkETh"}
+{"name":"Олега","phone":"+79639214545","_id":"YMUVh3upGZAQkETh"}
+{"$$deleted":true,"_id":"YMUVh3upGZAQkETh"}
