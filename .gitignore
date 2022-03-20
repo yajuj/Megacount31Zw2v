@@ -1,3 +1,4 @@
 /server/node_modules
+/server/data.db
 /front/node_modules
 .git
