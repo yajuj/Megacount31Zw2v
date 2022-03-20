@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
 
 const portalDiv = document.getElementById('portal')!;
@@ -21,11 +21,26 @@ const Modal: React.FC<IModal> = ({
   btnAceptTitle = '',
   btnCancelTitle = '',
 }) => {
+  const modalRef = useRef(null);
+
+  const handleOutsideClick = (e: MouseEvent) => {
+    if (modalRef.current && !e.composedPath().includes(modalRef.current)) {
+      onCancel();
+    }
+  };
+
+  useEffect(() => {
+    modalRef.current && document.addEventListener('click', handleOutsideClick);
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   return ReactDOM.createPortal(
     <div className='modalOverlay'>
-      <div className='customModal'>
+      <div ref={modalRef} className='customModal'>
         <div className='modal-dialog'>
           <div className='modal-content'>
             <div className='modal-header'>
