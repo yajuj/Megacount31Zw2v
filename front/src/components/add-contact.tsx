@@ -24,8 +24,10 @@ const AddButton = () => {
     setIsOpen(false);
   };
   return (
-    <div className='btn-add'>
-      <BsPlus className='text-white' onClick={() => setIsOpen(true)} />
+    <React.Fragment>
+      <div className='btn-add' onClick={() => setIsOpen(true)}>
+        <BsPlus className='text-white' />
+      </div>{' '}
       <Modal
         onSubmit={handleAddContact}
         onCancel={handleAbort}
@@ -41,7 +43,7 @@ const AddButton = () => {
           handlePhoneChange={e => setPhone(e.target.value)}
         />
       </Modal>
-    </div>
+    </React.Fragment>
   );
 };
 
