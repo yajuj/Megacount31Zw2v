@@ -3,12 +3,14 @@ import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
 
 export const getContacts = (request: Request, response: Response) => {
-  db.find({}, function (err: Error | null, docs: any[]) {
-    if (err) {
-      return response.status(400).json({ msg: 'Произошла ошибка.' });
-    }
-    response.json(docs);
-  });
+  db.find({})
+    .sort({ createdAt: -1 })
+    .exec(function (err: Error | null, docs: any[]) {
+      if (err) {
+        return response.status(400).json({ msg: 'Произошла ошибка.' });
+      }
+      response.json(docs);
+    });
 };
 
 export const addContact = (request: Request, response: Response) => {

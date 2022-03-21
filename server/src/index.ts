@@ -6,7 +6,11 @@ import router from './routes';
 const app = express();
 const PORT = 5000;
 
-export const db = new Datastore({ filename: 'data.db', autoload: true });
+export const db = new Datastore({
+  filename: 'data.db',
+  autoload: true,
+  timestampData: true,
+});
 
 app.use(
   cors({

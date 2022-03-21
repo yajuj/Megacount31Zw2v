@@ -15,6 +15,7 @@ function App() {
       <div className='container my-5'>
         <div className='row'>
           <div className='list-group mx-auto col-sm-5'>
+            {error && <p className='text-danger'>{error}</p>}
             <p>У вас нет контактов.</p>
             <p>Что бы добавить контакт нажмите на зеленую кнопку в углу</p>
           </div>

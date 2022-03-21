@@ -1,4 +1,5 @@
-{"name":"Александрff","phone":"+79559633255","_id":"JqBqiV7oi4n1nFNs"}
-{"name":"Тимур","phone":"+79589632545","_id":"NSnf7IqlXQVF7LWo"}
-{"name":"Ольга","phone":"+79569633255","_id":"rcTZ6YIT3DnraxqW"}
+{"name":"Артем","phone":"+79569683256","_id":"DjwyAMPw5HMcPfdD","createdAt":{"$$date":1647877034600},"updatedAt":{"$$date":1647877034600}}
+{"name":"Тимур","phone":"+79569693255","_id":"WLuP58fOPEpjNc9q","createdAt":{"$$date":1647876825849},"updatedAt":{"$$date":1647876825849}}
+{"name":"Олег","phone":"+79569683255","_id":"t0R6Dd9yQISNlvIt","createdAt":{"$$date":1647877011952},"updatedAt":{"$$date":1647877011952}}
 {"$$indexCreated":{"fieldName":"phone","unique":true,"sparse":false}}
+{"name":"Марго","phone":"+79569683258","_id":"58qT5ULLDtSJxgRw","createdAt":{"$$date":1647877172080},"updatedAt":{"$$date":1647877172080}}

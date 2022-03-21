@@ -58,6 +58,10 @@ export const AppContextProvider: React.FC = ({ children }) => {
       } else {
         setError('Не удалось добавить контакт.');
       }
+    } finally {
+      setTimeout(() => {
+        setError('');
+      }, 5000);
     }
   };
 
