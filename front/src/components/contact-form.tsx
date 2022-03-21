@@ -20,7 +20,7 @@ const ContactForm: React.FC<IContactForm> = ({
           Имя
         </label>
         <input
-          type='email'
+          type='text'
           className='form-control'
           id='name'
           value={name}
@@ -33,7 +33,7 @@ const ContactForm: React.FC<IContactForm> = ({
         </label>
         <input
           value={phone}
-          type='email'
+          type='text'
           className='form-control'
           id='phone'
           onChange={handlePhoneChange}
