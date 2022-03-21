@@ -19,9 +19,13 @@ const Contact: React.FC<IContact> = ({ _id, name, phone }) => {
   };
 
   const handleEditClose = () => {
+    setIsEdit(false);
+  };
+
+  const handleEditOpen = () => {
     setName(name);
     setPhone(phone);
-    setIsEdit(false);
+    setIsEdit(true);
   };
 
   const handleRemove = () => {
@@ -41,7 +45,7 @@ const Contact: React.FC<IContact> = ({ _id, name, phone }) => {
           <p className='mb-0 text-break'>{phone}</p>
         </div>
         <div className='d-flex gap-3 justify-content-between'>
-          <BsFillPencilFill role='button' onClick={() => setIsEdit(true)} />
+          <BsFillPencilFill role='button' onClick={handleEditOpen} />
           <BsXLg role='button' onClick={() => setIsRemove(true)} />
         </div>
       </div>
