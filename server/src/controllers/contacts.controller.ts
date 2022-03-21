@@ -13,9 +13,23 @@ export const getContacts = (request: Request, response: Response) => {
 
 export const addContact = (request: Request, response: Response) => {
   const errors = validationResult(request);
-  if (errors.isEmpty()) {
-    return response.status(400).json({ msg: 'Заполните все поля.' });
+  if (!errors.isEmpty()) {
+    const mapedErrors = errors.mapped();
+    if (mapedErrors.name && mapedErrors.phone) {
+      return response
+        .status(400)
+        .json({ msg: 'Введите валидные номер телефона и имя' });
+    }
+    if (mapedErrors.name) {
+      return response
+        .status(400)
+        .json({ msg: 'Имя должно содержать 3-20 символов' });
+    }
+    if (mapedErrors.phone) {
+      return response.status(400).json({ msg: 'Неверный номер' });
+    }
   }
+
   const data = request.body;
 
   db.insert(data, (err, doc) => {
@@ -37,8 +51,21 @@ export const getContact = (request: Request, response: Response) => {
 
 export const updateContact = (request: Request, response: Response) => {
   const errors = validationResult(request);
-  if (errors.isEmpty()) {
-    return response.status(400).json({ msg: 'Заполните все поля.' });
+  if (!errors.isEmpty()) {
+    const mapedErrors = errors.mapped();
+    if (mapedErrors.name && mapedErrors.phone) {
+      return response
+        .status(400)
+        .json({ msg: 'Введите валидные номер телефона и имя' });
+    }
+    if (mapedErrors.name) {
+      return response
+        .status(400)
+        .json({ msg: 'Имя должно содержать 3-20 символов' });
+    }
+    if (mapedErrors.phone) {
+      return response.status(400).json({ msg: 'Неверный номер' });
+    }
   }
   const id = request.params.id;
   const data = request.body;

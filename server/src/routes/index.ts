@@ -15,8 +15,11 @@ router.get('/contacts', getContacts);
 
 router.post(
   '/contacts',
-  body('name').isEmpty(),
-  body('phone').isEmpty(),
+  body('name').isLength({
+    min: 3,
+    max: 20,
+  }),
+  body('phone').isMobilePhone('ru-RU'),
   addContact
 );
 
@@ -24,8 +27,11 @@ router.get('/contacts/:id', getContact);
 
 router.patch(
   '/contacts/:id',
-  body('name').isEmpty(),
-  body('phone').isEmpty(),
+  body('name').isLength({
+    min: 3,
+    max: 20,
+  }),
+  body('phone').isMobilePhone('ru-RU'),
   updateContact
 );
 

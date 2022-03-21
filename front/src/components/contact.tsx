@@ -19,6 +19,8 @@ const Contact: React.FC<IContact> = ({ _id, name, phone }) => {
   };
 
   const handleEditClose = () => {
+    setName(name);
+    setPhone(phone);
     setIsEdit(false);
   };
 
@@ -35,8 +37,8 @@ const Contact: React.FC<IContact> = ({ _id, name, phone }) => {
     <div className='list-group-item d-flex gap-3 py-3'>
       <div className='d-flex gap-2 w-100 justify-content-between'>
         <div>
-          <p className='mb-1 '>{name}</p>
-          <p className='mb-0'>{phone}</p>
+          <p className='mb-1 text-break'>{name}</p>
+          <p className='mb-0 text-break'>{phone}</p>
         </div>
         <div className='d-flex gap-3 justify-content-between'>
           <BsFillPencilFill role='button' onClick={() => setIsEdit(true)} />

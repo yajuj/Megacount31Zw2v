@@ -51,7 +51,7 @@ export const AppContextProvider: React.FC = ({ children }) => {
       const { data } = await api.post<IContact>('/contacts', contact);
       setContacts(_contacts => [data, ..._contacts]);
       setError('');
-    } catch (error) {
+    } catch (error: any) {
       if (axios.isAxiosError(error)) {
         const err = error as AxiosError;
         setError(err.response?.data.msg);
