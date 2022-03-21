@@ -6,26 +6,34 @@ import ContactForm from './contact-form';
 import Modal from './modal';
 
 const Contact: React.FC<IContact> = ({ _id, name, phone }) => {
-  const { removeContact, updateContact } = useAppContext();
-  const [_name, setName] = useState(name);
-  const [_phone, setPhone] = useState(phone);
+  const {
+    removeContact,
+    updateContact,
+    editedUserValues,
+    setEditedUserValue,
+
+    setEditedContact,
+  } = useAppContext();
 
   const [isEdit, setIsEdit] = useState(false);
   const [isRemove, setIsRemove] = useState(false);
 
   const handleEditSubmit = () => {
-    updateContact({ name: _name, phone: _phone, _id });
-    setIsEdit(false);
-  };
-
-  const handleEditClose = () => {
+    updateContact({
+      name: editedUserValues.name,
+      phone: editedUserValues.phone,
+      _id,
+    });
     setIsEdit(false);
   };
 
   const handleEditOpen = () => {
-    setName(name);
-    setPhone(phone);
+    setEditedContact({ name, phone });
     setIsEdit(true);
+  };
+
+  const handleEditClose = () => {
+    setIsEdit(false);
   };
 
   const handleRemove = () => {
@@ -58,14 +66,10 @@ const Contact: React.FC<IContact> = ({ _id, name, phone }) => {
         onSubmit={handleEditSubmit}
       >
         <ContactForm
-          name={_name}
-          phone={_phone}
-          handleNameChange={e => {
-            setName(e.target.value);
-          }}
-          handlePhoneChange={e => {
-            setPhone(e.target.value);
-          }}
+          name={editedUserValues.name}
+          phone={editedUserValues.phone}
+          handleNameChange={setEditedUserValue}
+          handlePhoneChange={setEditedUserValue}
         />
       </Modal>
       <Modal

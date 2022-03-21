@@ -28,7 +28,9 @@ export const addContact = (request: Request, response: Response) => {
         .json({ msg: 'Имя должно содержать 3-20 символов' });
     }
     if (mapedErrors.phone) {
-      return response.status(400).json({ msg: 'Неверный номер' });
+      return response.status(400).json({
+        msg: `Неверный номер ${mapedErrors.phone.value}, введите номер в международном формате +7 9XX XXX XX XX.`,
+      });
     }
   }
 
@@ -66,7 +68,9 @@ export const updateContact = (request: Request, response: Response) => {
         .json({ msg: 'Имя должно содержать 3-20 символов' });
     }
     if (mapedErrors.phone) {
-      return response.status(400).json({ msg: 'Неверный номер' });
+      return response.status(400).json({
+        msg: `Неверный номер ${mapedErrors.phone.value}, введите номер в международном формате +7 9XX XXX XX XX.`,
+      });
     }
   }
   const id = request.params.id;

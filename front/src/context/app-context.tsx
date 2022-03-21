@@ -7,6 +7,9 @@ interface ContextState {
   contacts: IContact[];
   error: string;
   isLoading: boolean;
+  editedUserValues: Omit<IContact, '_id'>;
+  setEditedContact: (contact: Omit<IContact, '_id'>) => void;
+  setEditedUserValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
   removeContact: (id: string) => void;
   addContact: (contact: Omit<IContact, '_id'>) => void;
   updateContact: (contact: IContact) => void;
@@ -18,6 +21,23 @@ export const AppContextProvider: React.FC = ({ children }) => {
   const [contacts, setContacts] = useState<IContact[]>([]);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  const [editedUserValues, setEditedUserValues] = useState(
+    {} as Omit<IContact, '_id'>
+  );
+
+  const setEditedContact = (contact: Omit<IContact, '_id'>) => {
+    setEditedUserValues(contact);
+  };
+
+  const setEditedUserValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.id === 'name') {
+      setEditedUserValues({ ...editedUserValues, name: e.target.value });
+    }
+    if (e.target.id === 'phone') {
+      setEditedUserValues({ ...editedUserValues, phone: e.target.value });
+    }
+  };
 
   const fetchContacts = async () => {
     try {
@@ -89,6 +109,9 @@ export const AppContextProvider: React.FC = ({ children }) => {
     <Context.Provider
       value={{
         contacts,
+        editedUserValues,
+        setEditedContact,
+        setEditedUserValue,
         removeContact,
         updateContact,
         addContact,
