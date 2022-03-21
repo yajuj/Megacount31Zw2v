@@ -3,19 +3,29 @@ import { BsPlus } from 'react-icons/bs';
 import { useAppContext } from '../context/app-context';
 import ContactForm from './contact-form';
 import Modal from './modal';
+import Spinner from './spinner';
 
 const AddButton = () => {
-  const { addContact } = useAppContext();
+  const { addContact, error } = useAppContext();
+
   const [isOpen, setIsOpen] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false);
+
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
 
-  const handleAddContact = () => {
-    const contact = { name, phone };
-    addContact(contact);
-    setName('');
-    setPhone('');
-    setIsOpen(false);
+  const handleAddContact = async () => {
+    try {
+      setIsUpdating(true);
+      const contact = { name, phone };
+      await addContact(contact);
+      setName('');
+      setPhone('');
+      setIsOpen(false);
+    } catch (error) {
+    } finally {
+      setIsUpdating(false);
+    }
   };
 
   const handleAbort = () => {
@@ -36,12 +46,18 @@ const AddButton = () => {
         btnCancelTitle='Отмена'
         isOpen={isOpen}
       >
+        {error && <p className='text-danger'>{error}</p>}
         <ContactForm
           name={name}
           phone={phone}
           handleNameChange={e => setName(e.target.value)}
           handlePhoneChange={e => setPhone(e.target.value)}
         />
+        {isUpdating && (
+          <div className='d-flex justify-content-center align-items-center'>
+            <Spinner width='1rem' height='1rem' />
+          </div>
+        )}
       </Modal>
     </React.Fragment>
   );

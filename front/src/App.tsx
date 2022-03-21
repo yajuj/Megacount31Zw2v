@@ -8,7 +8,12 @@ import { useAppContext } from './context/app-context';
 function App() {
   const { contacts, error, isLoading } = useAppContext();
 
-  if (isLoading) return <Spinner />;
+  if (isLoading)
+    return (
+      <div className='d-flex justify-content-center align-items-center vw-100 vh-100'>
+        <Spinner width='5rem' height='5rem' />
+      </div>
+    );
 
   if (!contacts.length)
     return (
@@ -28,7 +33,6 @@ function App() {
     <div className='container my-5'>
       <div className='row'>
         <div className='list-group mx-auto col-sm-5'>
-          {error && <p className='text-danger'>{error}</p>}
           {contacts.map(({ _id, name, phone }) => (
             <Contact key={_id} _id={_id} name={name} phone={phone} />
           ))}

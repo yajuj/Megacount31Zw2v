@@ -76,13 +76,14 @@ export const AppContextProvider: React.FC = ({ children }) => {
       if (axios.isAxiosError(error)) {
         const err = error as AxiosError;
         setError(err.response?.data.msg);
+        throw new Error();
       } else {
         setError('Не удалось добавить контакт.');
       }
     } finally {
       setTimeout(() => {
         setError('');
-      }, 5000);
+      }, 4000);
     }
   };
 
@@ -99,9 +100,14 @@ export const AppContextProvider: React.FC = ({ children }) => {
       if (axios.isAxiosError(error)) {
         const err = error as AxiosError;
         setError(err.response?.data.msg);
+        throw new Error();
       } else {
         setError('Не удалось обновить контакт.');
       }
+    } finally {
+      setTimeout(() => {
+        setError('');
+      }, 4000);
     }
   };
 

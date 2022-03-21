@@ -4,9 +4,11 @@ import { useAppContext } from '../context/app-context';
 import { IContact } from '../types/contact';
 import ContactForm from './contact-form';
 import Modal from './modal';
+import Spinner from './spinner';
 
 const EditContact: React.FC<IContact> = ({ _id, name, phone }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false);
 
   const {
     updateContact,
@@ -17,12 +19,18 @@ const EditContact: React.FC<IContact> = ({ _id, name, phone }) => {
   } = useAppContext();
 
   const handleSubmit = async () => {
-    updateContact({
-      name: editedUserValues.name,
-      phone: editedUserValues.phone,
-      _id,
-    });
-    setIsOpen(false);
+    try {
+      setIsUpdating(true);
+      await updateContact({
+        name: editedUserValues.name,
+        phone: editedUserValues.phone,
+        _id,
+      });
+      setIsOpen(false);
+    } catch (e) {
+    } finally {
+      setIsUpdating(false);
+    }
   };
 
   const handleOpen = () => {
@@ -44,13 +52,20 @@ const EditContact: React.FC<IContact> = ({ _id, name, phone }) => {
         isOpen={isOpen}
         onCancel={handleClose}
         onSubmit={handleSubmit}
+        isDisabled={isUpdating}
       >
+        {error && <p className='text-danger'>{error}</p>}
         <ContactForm
           name={editedUserValues.name}
           phone={editedUserValues.phone}
           handleNameChange={setEditedUserValue}
           handlePhoneChange={setEditedUserValue}
         />
+        {isUpdating && (
+          <div className='d-flex justify-content-center align-items-center'>
+            <Spinner width='1rem' height='1rem' />
+          </div>
+        )}
       </Modal>
     </React.Fragment>
   );

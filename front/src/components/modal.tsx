@@ -5,6 +5,7 @@ const portalDiv = document.getElementById('portal')!;
 
 interface IModal {
   isOpen?: boolean;
+  isDisabled?: boolean;
   onCancel?: () => void;
   onSubmit?: () => void;
   title?: string;
@@ -20,6 +21,7 @@ const Modal: React.FC<IModal> = ({
   title = '',
   btnAceptTitle = '',
   btnCancelTitle = '',
+  isDisabled = false,
 }) => {
   const modalRef = useRef(null);
 
@@ -61,6 +63,7 @@ const Modal: React.FC<IModal> = ({
                 {btnCancelTitle}
               </button>
               <button
+                disabled={isDisabled}
                 type='button'
                 onClick={onSubmit}
                 className='btn btn-primary'
