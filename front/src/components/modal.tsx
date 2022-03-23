@@ -32,9 +32,10 @@ const Modal: React.FC<IModal> = ({
   };
 
   useEffect(() => {
-    modalRef.current && document.addEventListener('click', handleOutsideClick);
+    modalRef.current &&
+      document.addEventListener('mousedown', handleOutsideClick);
     return () => {
-      document.removeEventListener('click', handleOutsideClick);
+      document.removeEventListener('mousedown', handleOutsideClick);
     };
   }, [isOpen]);
 

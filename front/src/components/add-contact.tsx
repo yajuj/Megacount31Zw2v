@@ -2,30 +2,26 @@ import React, { useState } from 'react';
 import { BsPlus } from 'react-icons/bs';
 import { useAppContext } from '../context/app-context';
 import ContactForm from './contact-form';
+import ErrorMessage from './error-message';
 import Modal from './modal';
 import Spinner from './spinner';
 
 const AddButton = () => {
-  const { addContact, error } = useAppContext();
+  const { addContact, isUpdating, removeErrorMessage } = useAppContext();
 
   const [isOpen, setIsOpen] = useState(false);
-  const [isUpdating, setIsUpdating] = useState(false);
 
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
 
   const handleAddContact = async () => {
     try {
-      setIsUpdating(true);
       const contact = { name, phone };
       await addContact(contact);
       setName('');
       setPhone('');
       setIsOpen(false);
-    } catch (error) {
-    } finally {
-      setIsUpdating(false);
-    }
+    } catch (error) {}
   };
 
   const handleAbort = () => {
@@ -35,7 +31,13 @@ const AddButton = () => {
   };
   return (
     <React.Fragment>
-      <div className='btn-add' onClick={() => setIsOpen(true)}>
+      <div
+        className='btn-add'
+        onClick={() => {
+          removeErrorMessage();
+          setIsOpen(true);
+        }}
+      >
         <BsPlus className='text-white' />
       </div>{' '}
       <Modal
@@ -46,7 +48,7 @@ const AddButton = () => {
         btnCancelTitle='Отмена'
         isOpen={isOpen}
       >
-        {error && <p className='text-danger'>{error}</p>}
+        <ErrorMessage />
         <ContactForm
           name={name}
           phone={phone}

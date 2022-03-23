@@ -3,38 +3,36 @@ import { BsFillPencilFill } from 'react-icons/bs';
 import { useAppContext } from '../context/app-context';
 import { IContact } from '../types/contact';
 import ContactForm from './contact-form';
+import ErrorMessage from './error-message';
 import Modal from './modal';
 import Spinner from './spinner';
 
 const EditContact: React.FC<IContact> = ({ _id, name, phone }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isUpdating, setIsUpdating] = useState(false);
 
   const {
     updateContact,
     editedUserValues,
     setEditedUserValue,
     setEditedContact,
-    error,
+    isUpdating,
+    removeErrorMessage,
   } = useAppContext();
 
   const handleSubmit = async () => {
     try {
-      setIsUpdating(true);
       await updateContact({
         name: editedUserValues.name,
         phone: editedUserValues.phone,
         _id,
       });
       setIsOpen(false);
-    } catch (e) {
-    } finally {
-      setIsUpdating(false);
-    }
+    } catch (e) {}
   };
 
   const handleOpen = () => {
     setEditedContact({ name, phone });
+    removeErrorMessage();
     setIsOpen(true);
   };
 
@@ -54,7 +52,7 @@ const EditContact: React.FC<IContact> = ({ _id, name, phone }) => {
         onSubmit={handleSubmit}
         isDisabled={isUpdating}
       >
-        {error && <p className='text-danger'>{error}</p>}
+        <ErrorMessage />
         <ContactForm
           name={editedUserValues.name}
           phone={editedUserValues.phone}

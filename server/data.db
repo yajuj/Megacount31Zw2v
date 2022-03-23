@@ -1,5 +1,16 @@
+{"name":"Алекfs","phone":"+79856786566","_id":"AXVnAe8Jn7s652aI","createdAt":{"$$date":1648028095059},"updatedAt":{"$$date":1648028121664}}
 {"name":"Артем","phone":"+79569683255","_id":"DjwyAMPw5HMcPfdD","createdAt":{"$$date":1647877034600},"updatedAt":{"$$date":1647883646714}}
 {"name":"Тимур","phone":"+79569693255","_id":"WLuP58fOPEpjNc9q","createdAt":{"$$date":1647876825849},"updatedAt":{"$$date":1647878502604}}
+{"name":"Xesanam","phone":"+79569633255","_id":"ZbMoNgd5jEjCiXeA","createdAt":{"$$date":1647967315368},"updatedAt":{"$$date":1647967315368}}
 {"name":"Олегa","phone":"+79569683257","_id":"t0R6Dd9yQISNlvIt","createdAt":{"$$date":1647877011952},"updatedAt":{"$$date":1647883672966}}
 {"$$indexCreated":{"fieldName":"phone","unique":true,"sparse":false}}
-{"name":"Xesanam","phone":"+79632525569","_id":"KMNOkittTaX4D2zf","createdAt":{"$$date":1647885224154},"updatedAt":{"$$date":1647885224154}}
+{"name":"Xesanam","phone":"+79639014545","_id":"AXVnAe8Jn7s652aI","createdAt":{"$$date":1648028095059},"updatedAt":{"$$date":1648040828261}}
+{"$$deleted":true,"_id":"AXVnAe8Jn7s652aI"}
+{"name":"Xesanam","phone":"89634568787","_id":"oD0kJIsdMKQIHYAt","createdAt":{"$$date":1648040873923},"updatedAt":{"$$date":1648040873923}}
+{"name":"Олегafsdfsd","phone":"+79569683257","_id":"t0R6Dd9yQISNlvIt","createdAt":{"$$date":1647877011952},"updatedAt":{"$$date":1648043162273}}
+{"$$deleted":true,"_id":"oD0kJIsdMKQIHYAt"}
+{"$$deleted":true,"_id":"ZbMoNgd5jEjCiXeA"}
+{"$$deleted":true,"_id":"t0R6Dd9yQISNlvIt"}
+{"name":"Олег","phone":"+79635689898","_id":"vckWIkEEiHK2IiUV","createdAt":{"$$date":1648043249864},"updatedAt":{"$$date":1648043249864}}
+{"name":"Xesanam","phone":"+79569683259","_id":"OAOdJTMMqejLxTpv","createdAt":{"$$date":1648043311663},"updatedAt":{"$$date":1648043311663}}
+{"$$deleted":true,"_id":"OAOdJTMMqejLxTpv"}

@@ -15,35 +15,36 @@ export const getContacts = (request: Request, response: Response) => {
 
 export const addContact = (request: Request, response: Response) => {
   const errors = validationResult(request);
-  if (!errors.isEmpty()) {
-    const mapedErrors = errors.mapped();
-    if (mapedErrors.name && mapedErrors.phone) {
-      return response
-        .status(400)
-        .json({ msg: 'Введите валидные номер телефона и имя' });
-    }
-    if (mapedErrors.name) {
-      return response
-        .status(400)
-        .json({ msg: 'Имя должно содержать 3-20 символов' });
-    }
-    if (mapedErrors.phone) {
-      return response.status(400).json({
-        msg: `Неверный номер ${mapedErrors.phone.value}, введите номер в международном формате +7 9XX XXX XX XX.`,
-      });
-    }
+
+  if (errors.isEmpty()) {
+    const data = request.body;
+
+    db.insert(data, (err, doc) => {
+      if (err) {
+        return response
+          .status(400)
+          .json({ msg: 'Контакт с таким номером уже есть.' });
+      }
+      return response.json(doc);
+    });
   }
 
-  const data = request.body;
-
-  db.insert(data, (err, doc) => {
-    if (err) {
-      return response
-        .status(400)
-        .json({ msg: 'Контакт с таким номером уже есть.' });
-    }
-    return response.json(doc);
-  });
+  const mapedErrors = errors.mapped();
+  if (mapedErrors.name && mapedErrors.phone) {
+    return response
+      .status(400)
+      .json({ msg: 'Введите валидные номер телефона и имя' });
+  }
+  if (mapedErrors.name) {
+    return response
+      .status(400)
+      .json({ msg: 'Имя должно содержать 3-20 символов' });
+  }
+  if (mapedErrors.phone) {
+    return response.status(400).json({
+      msg: `Неверный номер ${mapedErrors.phone.value}, введите номер в международном формате +7 9XX XXX XX XX.`,
+    });
+  }
 };
 
 export const getContact = (request: Request, response: Response) => {
@@ -55,32 +56,36 @@ export const getContact = (request: Request, response: Response) => {
 
 export const updateContact = (request: Request, response: Response) => {
   const errors = validationResult(request);
-  if (!errors.isEmpty()) {
-    const mapedErrors = errors.mapped();
-    if (mapedErrors.name && mapedErrors.phone) {
-      return response
-        .status(400)
-        .json({ msg: 'Введите валидные номер телефона и имя' });
-    }
-    if (mapedErrors.name) {
-      return response
-        .status(400)
-        .json({ msg: 'Имя должно содержать 3-20 символов' });
-    }
-    if (mapedErrors.phone) {
-      return response.status(400).json({
-        msg: `Неверный номер ${mapedErrors.phone.value}, введите номер в международном формате +7 9XX XXX XX XX.`,
-      });
-    }
+
+  if (errors.isEmpty()) {
+    const id = request.params.id;
+    const data = request.body;
+    db.update({ _id: id }, data, { upsert: true }, function (err, numReplaced) {
+      if (err) {
+        return response
+          .status(400)
+          .json({ msg: 'Не удалось добавить контакт.' });
+      }
+      response.sendStatus(200);
+    });
   }
-  const id = request.params.id;
-  const data = request.body;
-  db.update({ _id: id }, data, { upsert: true }, function (err, numReplaced) {
-    if (err) {
-      return response.status(400).json({ msg: 'Не удалось добавить контакт.' });
-    }
-    response.sendStatus(200);
-  });
+
+  const mapedErrors = errors.mapped();
+  if (mapedErrors.name && mapedErrors.phone) {
+    return response
+      .status(400)
+      .json({ msg: 'Введите валидные номер телефона и имя' });
+  }
+  if (mapedErrors.name) {
+    return response
+      .status(400)
+      .json({ msg: 'Имя должно содержать 3-20 символов' });
+  }
+  if (mapedErrors.phone) {
+    return response.status(400).json({
+      msg: `Неверный номер ${mapedErrors.phone.value}, введите номер в международном формате +7 9XX XXX XX XX.`,
+    });
+  }
 };
 
 export const deleteContact = (request: Request, response: Response) => {

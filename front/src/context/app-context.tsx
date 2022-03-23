@@ -7,7 +7,9 @@ interface ContextState {
   contacts: IContact[];
   error: string;
   isLoading: boolean;
+  isUpdating: boolean;
   editedUserValues: Omit<IContact, '_id'>;
+  removeErrorMessage: () => void;
   setEditedContact: (contact: Omit<IContact, '_id'>) => void;
   setEditedUserValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
   removeContact: (id: string) => void;
@@ -21,6 +23,7 @@ export const AppContextProvider: React.FC = ({ children }) => {
   const [contacts, setContacts] = useState<IContact[]>([]);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false);
 
   const [editedUserValues, setEditedUserValues] = useState(
     {} as Omit<IContact, '_id'>
@@ -37,6 +40,10 @@ export const AppContextProvider: React.FC = ({ children }) => {
     if (e.target.id === 'phone') {
       setEditedUserValues({ ...editedUserValues, phone: e.target.value });
     }
+  };
+
+  const removeErrorMessage = () => {
+    setError('');
   };
 
   const fetchContacts = async () => {
@@ -68,6 +75,7 @@ export const AppContextProvider: React.FC = ({ children }) => {
 
   const addContact = async (contact: Omit<IContact, '_id'>) => {
     try {
+      setIsUpdating(true);
       const { data } = await api.post<IContact>('/contacts', contact);
       setContacts(_contacts => [data, ..._contacts]);
       setError('');
@@ -81,14 +89,13 @@ export const AppContextProvider: React.FC = ({ children }) => {
         setError('Не удалось добавить контакт.');
       }
     } finally {
-      setTimeout(() => {
-        setError('');
-      }, 4000);
+      setIsUpdating(false);
     }
   };
 
   const updateContact = async (contact: IContact) => {
     try {
+      setIsUpdating(true);
       await api.patch(`/contacts/${contact._id}`, contact);
       setContacts(_contacts =>
         _contacts.map(_contact =>
@@ -105,9 +112,7 @@ export const AppContextProvider: React.FC = ({ children }) => {
         setError('Не удалось обновить контакт.');
       }
     } finally {
-      setTimeout(() => {
-        setError('');
-      }, 4000);
+      setIsUpdating(false);
     }
   };
 
@@ -121,8 +126,10 @@ export const AppContextProvider: React.FC = ({ children }) => {
         removeContact,
         updateContact,
         addContact,
+        removeErrorMessage,
         error,
         isLoading,
+        isUpdating,
       }}
     >
       {children}
